@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo do Sorvete 🍦</title>
+</head>
+<body>
+
+<h1>Pontuação: <span id="score">0</span></h1>
+<h2>Tempo: <span id="time">30</span></h2>
+
+<button id="icecream">🍦 CLIQUE!</button>
+
+<script>
+let score = 0;
+let time = 30;
+
+const btn = document.getElementById("icecream");
+
+btn.onclick = () => {
+  score++;
+  document.getElementById("score").innerText = score;
+};
+
+let timer = setInterval(() => {
+  time--;
+  document.getElementById("time").innerText = time;
+
+  if (time <= 0) {
+    clearInterval(timer);
+    alert("Fim! Pontuação: " + score);
+
+    // ENVIA PRO BACKEND
+    fetch("https://SEU-BACKEND.onrender.com/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(score)
+    });
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
