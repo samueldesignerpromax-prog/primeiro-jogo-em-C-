@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -21,7 +22,6 @@ app.MapGet("/ranking", () =>
     return scores.OrderByDescending(s => s).Take(10);
 });
 
-// PORTA DO RENDER
 var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
 app.Urls.Add($"http://*:{port}");
 
